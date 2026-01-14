@@ -7,8 +7,10 @@ dimensions:
   check_in_datetime: {}
   check_out_datetime: {}
   total_price: {}
-  status: {}
   rating: {}
+
+  status:
+    sql: status
 
   stay_duration_days:
     sql: DATEDIFF('day', ${check_in_datetime}, ${check_out_datetime})
@@ -41,6 +43,11 @@ dimensions:
         ELSE 'Low'
       END
     label: Churn Risk
+
+  proper_status:
+    sql: ARRAY_TO_STRING(LIST_TRANSFORM(STRING_SPLIT(LOWER(${main__fact_reservations.status}),
+      ' '), x -> UPPER(LEFT(x, 1)) || SUBSTRING(x, 2)), ' ')
+    label: Proper Status
 
 measures:
   count:
