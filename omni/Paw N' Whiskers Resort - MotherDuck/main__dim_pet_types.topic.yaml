@@ -1,0 +1,5 @@
+base_view: main__dim_pet_types
+label: Pet Types
+
+joins:
+  main__dim_pets: {}

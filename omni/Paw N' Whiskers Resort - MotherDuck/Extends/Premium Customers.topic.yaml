@@ -1,0 +1,25 @@
+extends: [ main__dim_customers ]
+
+label: Premium Customers
+group_label: Extends
+
+joins:
+  main__fact_transactions: {}
+  main__dim_pets: {}
+  main__fact_reservations:
+    main__dim_locations: {}
+
+views:
+  main__dim_customers:
+    measures:
+      premium_customer_count:
+        sql: ${customer_id}
+        label: Premium Customers
+        aggregate_type: count_distinct
+  # main__fact_transactions:
+  #   measures:
+  #     premium_ltv:
+  #       sql: ${revenue_per_customer}
+  #       label: Premium Customer LTV
+  #       aggregate_type: average_distinct_on
+  #       custom_primary_key_sql: ${revenue_per_customer}

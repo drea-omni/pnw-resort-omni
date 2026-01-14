@@ -1,0 +1,70 @@
+- join_from_view: main__dim_customers
+  join_to_view: main__fact_transactions
+  join_type: always_left
+  on_sql: ${main__dim_customers.customer_id} = ${main__fact_transactions.customer_id}
+  relationship_type: one_to_many
+  reversible: false
+
+- join_from_view: main__fact_reservations
+  join_to_view: main__fact_transactions
+  join_type: always_left
+  on_sql: ${main__fact_reservations.reservation_id} =
+    ${main__fact_transactions.reservation_id}
+  relationship_type: one_to_one
+
+- join_from_view: main__dim_services
+  join_to_view: main__fact_reservations
+  join_type: always_left
+  on_sql: ${main__dim_services.service_id} = ${main__fact_reservations.service_id}
+  relationship_type: one_to_many
+  reversible: false
+
+- join_from_view: main__fact_reservations
+  join_to_view: main__dim_locations
+  join_type: always_left
+  on_sql: ${main__fact_reservations.location_id} = ${main__dim_locations.location_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: main__fact_reservations
+  join_to_view: main__dim_pets
+  join_type: always_left
+  on_sql: ${main__fact_reservations.pet_id} = ${main__dim_pets.pet_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: main__fact_reservations
+  join_to_view: main__dim_customers
+  join_type: always_left
+  on_sql: ${main__fact_reservations.customer_id} = ${main__dim_customers.customer_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: main__dim_service_categories
+  join_to_view: main__dim_services
+  join_type: always_left
+  on_sql: ${main__dim_service_categories.category_id} =
+    ${main__dim_services.category_id}
+  relationship_type: one_to_many
+  reversible: false
+
+- join_from_view: main__dim_pet_types
+  join_to_view: main__dim_pets
+  join_type: always_left
+  on_sql: ${main__dim_pet_types.pet_type_id} = ${main__dim_pets.pet_type_id}
+  relationship_type: one_to_many
+  reversible: false
+
+- join_from_view: main__dim_breeds
+  join_to_view: main__dim_pets
+  join_type: always_left
+  on_sql: ${main__dim_breeds.breed_id} = ${main__dim_pets.breed_id}
+  relationship_type: one_to_many
+  reversible: false
+
+- join_from_view: main__dim_customers
+  join_to_view: main__dim_pets
+  join_type: always_left
+  on_sql: ${main__dim_customers.customer_id} = ${main__dim_pets.customer_id}
+  relationship_type: one_to_many
+  reversible: false

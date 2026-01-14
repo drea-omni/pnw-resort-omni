@@ -1,0 +1,48 @@
+# Reference this view as main__dim_services
+schema: main
+table_name: dim_services
+
+dimensions:
+  service_name: {}
+
+  base_price:
+    label: Base Price
+
+  duration_minutes:
+    label: Duration (mins)
+
+  is_premium:
+    label: Premium Service
+
+  service_id:
+    format: ID
+    primary_key: true
+
+  category_id:
+    format: ID
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  service_count:
+    sql: ${service_id}
+    label: Number of Services
+    aggregate_type: count_distinct
+
+  avg_service_price:
+    sql: ${base_price}
+    label: Avg Service Price
+    format: USDCURRENCY_2
+    aggregate_type: average
+
+  min_price:
+    sql: ${base_price}
+    label: Minimum Price
+    aggregate_type: min
+
+  max_price:
+    sql: ${base_price}
+    label: Maximum Price
+    aggregate_type: max

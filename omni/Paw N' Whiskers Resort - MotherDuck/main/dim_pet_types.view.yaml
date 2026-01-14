@@ -1,0 +1,23 @@
+# Reference this view as main__dim_pet_types
+schema: main
+table_name: dim_pet_types
+
+dimensions:
+  pet_type_name:
+    label: Pet Type
+
+  percentage_of_business:
+    label: Expected % of Business
+
+  pet_type_id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  type_count:
+    sql: ${pet_type_id}
+    label: Number of Pet Types
+    aggregate_type: count_distinct

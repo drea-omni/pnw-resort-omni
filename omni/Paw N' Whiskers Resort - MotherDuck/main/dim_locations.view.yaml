@@ -1,0 +1,42 @@
+# Reference this view as main__dim_locations
+schema: main
+table_name: dim_locations
+
+dimensions:
+  location_name: {}
+  location_short_name: {}
+  region: {}
+  city: {}
+  state: {}
+  opened_date: {}
+
+  boarding_capacity:
+    label: Boarding Capacity
+
+  daycare_capacity:
+    label: Daycare Capacity
+
+  is_flagship:
+    label: Flagship Location
+
+  location_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  total_locations:
+    sql: ${location_id}
+    label: Total Locations
+    aggregate_type: count_distinct
+
+  avg_boarding_capacity:
+    sql: ${boarding_capacity}
+    label: Avg Boarding Capacity
+    aggregate_type: average
+
+  total_capacity:
+    sql: ${boarding_capacity}
+    label: Total Boarding Capacity
+    aggregate_type: sum

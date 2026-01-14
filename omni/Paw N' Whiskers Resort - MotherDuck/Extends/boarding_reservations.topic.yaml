@@ -1,0 +1,18 @@
+extends: [ main__fact_reservations ]
+
+label: Boarding Reservations Only
+group_label: Extends
+
+always_where_filters:
+  main__dim_services.category_id:
+    is: CAT001
+
+joins: {}
+
+views:
+  main__dim_locations:
+    measures:
+      occupancy_rate:
+        sql: ${main__fact_reservations.total_reservations}::FLOAT /
+          NULLIF(${main__dim_locations.total_capacity}, 0)
+        label: Occupancy Rate

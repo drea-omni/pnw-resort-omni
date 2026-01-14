@@ -1,0 +1,61 @@
+# Reference this view as main__fact_transactions
+schema: main
+table_name: fact_transactions
+
+dimensions:
+  transaction_date: {}
+  amount: {}
+  payment_method: {}
+  status: {}
+
+  transaction_id:
+    format: ID
+
+  reservation_id:
+    format: ID
+
+  customer_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  total_transactions:
+    sql: ${transaction_id}
+    label: Total Transactions
+    aggregate_type: count_distinct
+
+  transaction_revenue:
+    sql: ${amount}
+    label: Transaction Revenue
+    aggregate_type: sum
+
+  avg_transaction_value:
+    sql: ${amount}
+    label: Avg Transaction Value
+    aggregate_type: average
+
+  credit_card_transactions:
+    sql: CASE WHEN ${payment_method} = 'credit_card' THEN ${transaction_id} END
+    label: Credit Card Transactions
+    aggregate_type: count_distinct
+
+  credit_card_revenue:
+    sql: CASE WHEN ${payment_method} = 'credit_card' THEN ${amount} END
+    label: Credit Card Revenue
+    aggregate_type: sum
+
+  cash_transactions:
+    sql: CASE WHEN ${payment_method} = 'cash' THEN ${transaction_id} END
+    label: Cash Transactions
+    aggregate_type: count_distinct
+
+  revenue_per_customer:
+    sql: ${transaction_revenue} / NULLIF(${main__dim_customers.total_customers}, 0)
+    label: Revenue per Customer
+
+  transactions_per_customer:
+    sql: ${total_transactions}::FLOAT /
+      NULLIF(${main__dim_customers.total_customers}, 0)
+    label: Transactions per Customer

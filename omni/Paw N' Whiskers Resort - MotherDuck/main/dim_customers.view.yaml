@@ -1,0 +1,48 @@
+# Reference this view as main__dim_customers
+schema: main
+table_name: dim_customers
+
+dimensions:
+  first_name: {}
+  last_name: {}
+  email: {}
+  phone: {}
+
+  created_date:
+    label: Customer Since
+
+  created_month:
+    sql: DATE_TRUNC('month', ${created_date})
+    label: Signup Month
+
+  created_year:
+    sql: DATE_TRUNC('year', ${created_date})
+    label: Signup Year
+
+  full_name:
+    sql: ${first_name} || ' ' || ${last_name}
+    label: Full Name
+
+  customer_id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  total_customers:
+    sql: ${customer_id}
+    label: Total Customers
+    aggregate_type: count_distinct
+
+  new_customers:
+    sql: CASE WHEN ${created_date} >= CURRENT_DATE - INTERVAL '30 days' THEN
+      ${customer_id} END
+    label: New Customers (30d)
+    aggregate_type: count_distinct
+
+  customer_tenure_days:
+    sql: DATEDIFF('day', ${created_date}, CURRENT_DATE)
+    label: Avg Customer Tenure (days)
+    aggregate_type: average

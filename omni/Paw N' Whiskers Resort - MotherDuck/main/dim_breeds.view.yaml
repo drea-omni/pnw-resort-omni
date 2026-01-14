@@ -1,0 +1,25 @@
+# Reference this view as main__dim_breeds
+schema: main
+table_name: dim_breeds
+
+dimensions:
+  breed_name: {}
+  size_category: {}
+
+  image_url:
+    label: Breed Image
+
+  breed_id:
+    format: ID
+
+  pet_type_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  breed_count:
+    sql: ${breed_id}
+    label: Number of Breeds
+    aggregate_type: count_distinct

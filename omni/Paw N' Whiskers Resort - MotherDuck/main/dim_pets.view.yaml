@@ -1,0 +1,50 @@
+# Reference this view as main__dim_pets
+schema: main
+table_name: dim_pets
+
+dimensions:
+  pet_name: {}
+  birth_date: {}
+  gender: {}
+  weight_lbs: {}
+
+  age_years:
+    sql: DATEDIFF('year', ${birth_date}, CURRENT_DATE)
+    label: Age (years)
+
+  pet_id:
+    format: ID
+
+  customer_id:
+    format: ID
+    hidden: true
+
+  breed_id:
+    format: ID
+    hidden: true
+
+  pet_type_id:
+    format: ID
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  total_pets:
+    sql: ${pet_id}
+    label: Total Pets
+    aggregate_type: count_distinct
+
+  avg_pet_age:
+    sql: ${age_years}
+    label: Avg Pet Age
+    aggregate_type: average
+
+  avg_weight:
+    sql: ${weight_lbs}
+    label: Avg Weight
+    aggregate_type: average
+  # pets_per_customer:
+  #   sql: ${total_pets} / NULLIF(${main__dim_customers.total_customers}, 0)
+  #   label: Pets per Customer

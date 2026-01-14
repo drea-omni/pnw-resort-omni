@@ -1,0 +1,11 @@
+base_view: main__dim_service_categories
+label: Service Categories
+
+joins:
+  {}
+  # main__dim_services:
+  #   main__fact_reservations:
+  #     main__fact_transactions: {}
+  #     main__dim_locations: {}
+  #     main__dim_pets: {}
+  #     main__dim_customers: {}

@@ -1,0 +1,4 @@
+base_view: main__dim_locations
+label: Resort Locations
+
+joins: {}

@@ -1,0 +1,24 @@
+base_view: main__dim_customers
+label: Customers
+description: Analyze customer data including their locations, pets,
+  reservations, and transaction history. This topic enables comprehensive
+  customer analytics across demographics, booking patterns, and purchasing
+  behavior.
+
+joins:
+  main__fact_transactions: {}
+  main__dim_pets:
+    main__dim_pet_types: {}
+  main__fact_reservations:
+    main__dim_locations: {}
+
+ai_context: Use this topic for customer-centric analysis such as customer
+  segmentation, lifetime value calculations, retention analysis, and behavioral
+  patterns. Query Dim Customers for customer attributes and demographics. Join
+  to Dim Locations to analyze customers by geographic region or address. Use Dim
+  Pets to understand pet ownership patterns and preferences among customers.
+  Analyze Fact Reservations for booking behavior, frequency, and preferences.
+  Query Fact Transactions for purchase history, revenue per customer, and
+  spending patterns. Combine reservation and transaction data to calculate
+  metrics like average booking value, customer lifetime value, or repeat
+  purchase rates.

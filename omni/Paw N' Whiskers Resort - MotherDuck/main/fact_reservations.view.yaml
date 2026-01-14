@@ -1,0 +1,103 @@
+# Reference this view as main__fact_reservations
+schema: main
+table_name: fact_reservations
+
+dimensions:
+  reservation_date: {}
+  check_in_datetime: {}
+  check_out_datetime: {}
+  total_price: {}
+  status: {}
+  rating: {}
+
+  stay_duration_days:
+    sql: DATEDIFF('day', ${check_in_datetime}, ${check_out_datetime})
+    label: Stay Duration (days)
+
+  days_since_last_visit:
+    sql: DATEDIFF('day', MAX(${check_out_datetime}), CURRENT_DATE)
+    label: Days Since Last Visit
+
+  reservation_id:
+    format: ID
+
+  pet_id:
+    format: ID
+
+  customer_id:
+    format: ID
+
+  location_id:
+    format: ID
+
+  service_id:
+    format: ID
+
+  churn_risk:
+    sql: |
+      CASE 
+        WHEN DATEDIFF('day', MAX(${check_out_datetime}), CURRENT_DATE) > 180 THEN 'High'
+        WHEN DATEDIFF('day', MAX(${check_out_datetime}), CURRENT_DATE) > 90 THEN 'Medium'
+        ELSE 'Low'
+      END
+    label: Churn Risk
+
+measures:
+  count:
+    aggregate_type: count
+
+  total_reservations:
+    sql: ${reservation_id}
+    label: Total Reservations
+    aggregate_type: count_distinct
+
+  completed_reservations:
+    sql: CASE WHEN ${status} = 'completed' THEN ${reservation_id} END
+    label: Completed Reservations
+    aggregate_type: count_distinct
+
+  cancelled_reservations:
+    sql: CASE WHEN ${status} = 'cancelled' THEN ${reservation_id} END
+    label: Cancelled Reservations
+    aggregate_type: count_distinct
+
+  no_show_reservations:
+    sql: CASE WHEN ${status} = 'no-show' THEN ${reservation_id} END
+    label: No-Show Reservations
+    aggregate_type: count_distinct
+
+  completion_rate:
+    sql: ${completed_reservations}::FLOAT / NULLIF(${total_reservations}, 0)
+    label: Completion Rate
+
+  cancellation_rate:
+    sql: ${cancelled_reservations}::FLOAT / NULLIF(${total_reservations}, 0)
+    label: Cancellation Rate
+
+  total_revenue:
+    sql: ${total_price}
+    label: Total Revenue
+    aggregate_type: sum
+
+  avg_reservation_value:
+    sql: ${total_price}
+    label: Avg Reservation Value
+    aggregate_type: average
+
+  avg_stay_duration:
+    sql: ${stay_duration_days}
+    label: Avg Stay Duration
+    aggregate_type: average
+
+  avg_rating:
+    sql: ${rating}
+    label: Avg Rating
+    aggregate_type: average
+
+  five_star_rate:
+    sql: COUNT(CASE WHEN ${rating} = 5 THEN 1 END)::FLOAT / NULLIF(COUNT(${rating}),
+      0)
+    label: 5-Star Rate
+  # reservations_per_pet:
+  #   sql: ${total_reservations}::FLOAT / NULLIF(${main__dim_pets.total_pets}, 0)
+  #   label: Reservations per Pet

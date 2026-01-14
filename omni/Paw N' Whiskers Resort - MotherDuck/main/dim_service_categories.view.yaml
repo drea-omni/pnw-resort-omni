@@ -1,0 +1,21 @@
+# Reference this view as main__dim_service_categories
+schema: main
+table_name: dim_service_categories
+
+dimensions:
+  color_hex:
+    label: Color
+
+  display_order:
+    hidden: true
+
+  category_name:
+    label: Category
+
+  category_id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count
