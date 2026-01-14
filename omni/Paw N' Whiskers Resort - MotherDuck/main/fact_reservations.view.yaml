@@ -8,6 +8,32 @@ dimensions:
   check_out_datetime: {}
   total_price: {}
   rating: {}
+  actual_check_in_datetime: {}
+  actual_check_out_datetime: {}
+  booked_by: {}
+  booking_source_detail: {}
+  lead_time_hours: {}
+  early_checkin_late_fee: {}
+  late_pickup_fee: {}
+  add_on_services: {}
+  add_on_total: {}
+  discount_code: {}
+  discount_amount: {}
+  special_requests: {}
+  room_kennel_number: {}
+  incident_reported: {}
+  incident_description: {}
+  photo_package_purchased: {}
+  report_card_sent: {}
+  repeat_booking: {}
+  cancellation_reason: {}
+  refund_amount: {}
+  net_revenue: {}
+  length_of_stay_days: {}
+  day_of_week: {}
+  is_weekend: {}
+  is_holiday: {}
+  weather_condition: {}
 
   status:
     sql: status
@@ -43,6 +69,9 @@ dimensions:
         ELSE 'Low'
       END
     label: Churn Risk
+
+  assigned_staff_id:
+    format: ID
 
   proper_status:
     sql: ARRAY_TO_STRING(LIST_TRANSFORM(STRING_SPLIT(LOWER(${main__fact_reservations.status}),

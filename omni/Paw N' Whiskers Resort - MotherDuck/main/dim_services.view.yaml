@@ -4,6 +4,24 @@ table_name: dim_services
 
 dimensions:
   service_name: {}
+  description: {}
+  staff_required: {}
+  equipment_required: {}
+  skill_level_required: {}
+  min_pet_age_months: {}
+  max_pet_age_months: {}
+  pet_type_restrictions: {}
+  size_restrictions: {}
+  max_weight_lbs: {}
+  booking_lead_time_hours: {}
+  cancellation_hours: {}
+  add_on_available: {}
+  package_eligible: {}
+  seasonal_service: {}
+  popularity_rank: {}
+  profit_margin_pct: {}
+  introduction_date: {}
+  retirement_date: {}
 
   base_price:
     label: Base Price

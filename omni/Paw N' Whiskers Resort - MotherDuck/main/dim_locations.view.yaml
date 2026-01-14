@@ -9,6 +9,27 @@ dimensions:
   city: {}
   state: {}
   opened_date: {}
+  address_street: {}
+  address_zip: {}
+  phone: {}
+  manager_name: {}
+  manager_email: {}
+  square_footage: {}
+  grooming_stations: {}
+  training_rooms: {}
+  retail_square_feet: {}
+  parking_spaces: {}
+  operating_hours: {}
+  amenities: {}
+  certification_level: {}
+  avg_staff_count: {}
+  renovation_date: {}
+  annual_utility_cost: {}
+  property_lease_status: {}
+  lease_expiration_date: {}
+  market_density: {}
+  latitude: {}
+  longitude: {}
 
   boarding_capacity:
     label: Boarding Capacity

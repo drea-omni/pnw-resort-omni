@@ -7,6 +7,22 @@ dimensions:
   last_name: {}
   email: {}
   phone: {}
+  address_street: {}
+  address_city: {}
+  address_state: {}
+  address_zip: {}
+  latitude: {}
+  longitude: {}
+  preferred_contact_method: {}
+  loyalty_tier_color: {}
+  loyalty_tier_medal: {}
+  lifetime_value: {}
+  total_pets: {}
+  referral_source: {}
+  marketing_opt_in: {}
+  last_visit_date: {}
+  customer_segment: {}
+  account_status: {}
 
   created_date:
     label: Customer Since

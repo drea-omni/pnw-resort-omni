@@ -7,6 +7,27 @@ dimensions:
   amount: {}
   payment_method: {}
   status: {}
+  payment_processor: {}
+  processing_fee: {}
+  net_amount: {}
+  transaction_type: {}
+  currency: {}
+  exchange_rate: {}
+  tip_amount: {}
+  tax_amount: {}
+  invoice_number: {}
+  receipt_sent: {}
+  receipt_email: {}
+  payment_plan: {}
+  installment_number: {}
+  failed_attempts: {}
+  reconciliation_status: {}
+  reconciliation_date: {}
+  chargeback_filed: {}
+  chargeback_reason: {}
+  staff_id_processed_by: {}
+  customer_present: {}
+  recurring_transaction: {}
 
   transaction_id:
     format: ID
@@ -15,6 +36,18 @@ dimensions:
     format: ID
 
   customer_id:
+    format: ID
+
+  location_id:
+    format: ID
+
+  service_category_id:
+    format: ID
+
+  device_id:
+    format: ID
+
+  parent_transaction_id:
     format: ID
 
 measures:

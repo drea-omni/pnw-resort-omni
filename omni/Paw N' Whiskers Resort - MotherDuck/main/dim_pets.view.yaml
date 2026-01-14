@@ -7,6 +7,20 @@ dimensions:
   birth_date: {}
   gender: {}
   weight_lbs: {}
+  color: {}
+  microchip_number: {}
+  spayed_neutered: {}
+  special_needs: {}
+  temperament: {}
+  dietary_restrictions: {}
+  favorite_toy: {}
+  favorite_treat: {}
+  emergency_vet_name: {}
+  emergency_vet_phone: {}
+  last_vaccination_date: {}
+  registration_date: {}
+  active_status: {}
+  profile_photo_url: {}
 
   age_years:
     sql: DATEDIFF('year', ${birth_date}, CURRENT_DATE)

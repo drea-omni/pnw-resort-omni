@@ -1,0 +1,26 @@
+# Reference this view as main__dim_staff
+schema: main
+table_name: dim_staff
+
+dimensions:
+  first_name: {}
+  last_name: {}
+  email: {}
+  phone: {}
+  role: {}
+  certification_level: {}
+  hire_date: {}
+  hourly_rate: {}
+  specialization: {}
+  active_status: {}
+  employee_image_url: {}
+
+  staff_id:
+    format: ID
+
+  location_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
