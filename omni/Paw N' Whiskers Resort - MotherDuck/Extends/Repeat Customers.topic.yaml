@@ -3,6 +3,7 @@ extends: [ main__dim_customers ]
 label: Repeat Customers
 group_label: Extends
 
+fields: [ main__fact_reservations.total_reservations ]
 always_where_filters:
   main__fact_reservations.total_reservations:
     greater_than_or_equal_to: 2
