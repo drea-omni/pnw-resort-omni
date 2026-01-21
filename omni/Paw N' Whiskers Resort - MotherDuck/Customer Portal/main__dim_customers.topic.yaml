@@ -1,0 +1,161 @@
+base_view: main__dim_customers
+label: My Paws & Whiskers Account
+group_label: Customer Portal
+description: |
+  Customer-facing loyalty portal showing personal account details, loyalty tiers,
+  pet profiles, upcoming reservations, transaction history, and achievements.
+  Secured with row-level security - each customer sees only their own data.
+
+# ============================================================================
+# CURATED FIELD LIST - Only show customer-appropriate fields
+# ============================================================================
+# IMPORTANT: Hidden and sensitive fields are excluded from customer view
+# Excludes: passwords, internal notes, cost data, staff payment info, etc.
+
+fields:
+  # ========== CUSTOMER PROFILE (Personal Info) ==========
+  [
+    main__dim_customers.customer_id,
+    main__dim_customers.first_name,
+    main__dim_customers.last_name,
+    main__dim_customers.full_name,
+    main__dim_customers.email,
+    main__dim_customers.phone,
+    main__dim_customers.preferred_contact_method,
+    main__dim_customers.address_street,
+    main__dim_customers.address_city,
+    main__dim_customers.address_state,
+    main__dim_customers.address_zip,
+    main__dim_customers.loyalty_tier_color,
+    main__dim_customers.loyalty_tier_medal,
+    main__dim_customers.lifetime_value,
+    main__dim_customers.total_pets,
+    main__dim_customers.created_date,
+    main__dim_customers.last_visit_date,
+    main__dim_customers.customer_segment,
+    main__dim_customers.referral_source,
+    main__dim_customers.marketing_opt_in,
+    main__dim_pets.pet_id,
+    main__dim_pets.pet_name,
+    main__dim_pets.birth_date,
+    main__dim_pets.age_years,
+    main__dim_pets.gender,
+    main__dim_pets.color,
+    main__dim_pets.weight_lbs,
+    main__dim_pets.temperament,
+    main__dim_pets.special_needs,
+    main__dim_pets.dietary_restrictions,
+    main__dim_pets.favorite_toy,
+    main__dim_pets.favorite_treat,
+    main__dim_pets.spayed_neutered,
+    main__dim_pets.last_vaccination_date,
+    main__dim_pets.profile_photo_url,
+    main__dim_pets.active_status,
+    main__fact_reservations.reservation_id,
+    main__fact_reservations.reservation_date,
+    main__fact_reservations.check_in_datetime,
+    main__fact_reservations.check_out_datetime,
+    main__fact_reservations.actual_check_in_datetime,
+    main__fact_reservations.actual_check_out_datetime,
+    main__fact_reservations.status,
+    main__fact_reservations.stay_duration_days,
+    main__fact_reservations.total_price,
+    main__fact_reservations.add_on_services,
+    main__fact_reservations.add_on_total,
+    main__fact_reservations.special_requests,
+    main__fact_reservations.room_kennel_number,
+    main__fact_reservations.rating,
+    main__fact_reservations.photo_package_purchased,
+    main__fact_reservations.report_card_sent,
+    main__fact_reservations.repeat_booking,
+    main__dim_services.service_id,
+    main__dim_services.service_name,
+    main__dim_services.description,
+    main__dim_services.base_price,
+    main__dim_services.duration_minutes,
+    main__dim_services.is_premium,
+    main__dim_locations.location_id,
+    main__dim_locations.location_name,
+    main__dim_locations.location_short_name,
+    main__dim_locations.city,
+    main__dim_locations.state,
+    main__dim_locations.phone,
+    main__dim_locations.amenities,
+    main__dim_locations.operating_hours,
+    main__dim_locations.latitude,
+    main__dim_locations.longitude,
+    main__dim_staff.staff_id,
+    main__dim_staff.first_name,
+    main__dim_staff.last_name,
+    main__dim_staff.role,
+    main__dim_staff.specialization,
+    main__dim_staff.employee_image_url,
+    main__fact_transactions.transaction_id,
+    main__fact_transactions.transaction_date,
+    main__fact_transactions.amount,
+    main__fact_transactions.payment_method,
+    main__fact_transactions.status,
+    main__fact_transactions.tip_amount,
+    main__fact_transactions.receipt_sent,
+    main__fact_transactions.recurring_transaction
+  ]
+# ============================================================================
+# ROW-LEVEL SECURITY - CRITICAL FOR CUSTOMER EMBED
+# ============================================================================
+# This ensures that when embedded with user attributes, each customer 
+# can ONLY see their own data. The customer_id from the embed user_attributes
+# is matched against the customer_id in dim_customers.
+# ============================================================================
+
+access_filters:
+  - field: main__dim_customers.customer_id
+    user_attribute: customer_id
+    values_for_unfiltered: [ admin ]
+# ============================================================================
+# DEFAULT FILTERS - Optimize customer experience
+# ============================================================================
+
+always_where_sql: main__dim_customers.account_status = 'active'
+
+# ============================================================================
+# JOINS - Define available data relationships
+# ============================================================================
+
+joins:
+  main__fact_transactions: {}
+  main__dim_pets: {}
+  main__fact_reservations:
+    main__dim_locations: {}
+    main__dim_services: {}
+    main__dim_staff: {}
+
+# ============================================================================
+# AI CONTEXT - Guides the Ask AI component
+# ============================================================================
+
+ai_context: |
+  You are helping a pet owner understand their loyalty account and service history
+  with Paws & Whiskers Resort. Be warm, encouraging, and celebratory about their
+  loyalty journey!
+
+  Key topics to help with:
+  - Loyalty tier status: Color tier (visits-based) and Medal tier (spend-based)
+  - Progress toward next tier level and milestones
+  - Pet profiles: health records, vaccination dates, special needs, preferences
+  - Upcoming and past reservations with stay details
+  - Services used: grooming, boarding, daycare, training, retail
+  - Transaction history and spending patterns
+  - Favorite locations and preferred staff
+  - Photos and report cards from visits
+
+  Sample questions a customer might ask:
+  - "What's my current loyalty status?"
+  - "When is my pet's next vaccination due?"
+  - "Show me my upcoming reservations"
+  - "Which services has my dog received?"
+  - "What's my total spending this year?"
+  - "Tell me about my favorite location"
+
+  Always be positive about their loyalty, celebrate milestones, and encourage
+  future visits. Reference their pet's names and show genuine interest in their
+  pets' wellbeing.

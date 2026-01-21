@@ -1,3 +1,10 @@
+- join_from_view: main__dim_staff
+  join_to_view: main__fact_reservations
+  join_type: always_left
+  on_sql: ${main__dim_staff.staff_id} = ${main__fact_reservations.assigned_staff_id}
+  relationship_type: one_to_many
+  reversible: false
+
 - join_from_view: main__dim_customers
   join_to_view: main__fact_transactions
   join_type: always_left
