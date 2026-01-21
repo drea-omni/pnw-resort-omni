@@ -107,10 +107,10 @@ fields:
 # is matched against the customer_id in dim_customers.
 # ============================================================================
 
-access_filters:
-  - field: main__dim_customers.customer_id
-    user_attribute: customer_id
-    values_for_unfiltered: [ admin ]
+# access_filters:
+#   - field: main__dim_customers.customer_id
+#     user_attribute: customer_id
+#     values_for_unfiltered: [ admin ]
 # ============================================================================
 # DEFAULT FILTERS - Optimize customer experience
 # ============================================================================
