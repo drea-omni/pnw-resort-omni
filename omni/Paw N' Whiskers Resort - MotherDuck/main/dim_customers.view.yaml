@@ -62,3 +62,9 @@ measures:
     sql: DATEDIFF('day', ${created_date}, CURRENT_DATE)
     label: Avg Customer Tenure (days)
     aggregate_type: average
+
+  customers_per_pet:
+    sql: CASE WHEN ${main__dim_pets.total_pets} = 0 THEN NULL ELSE
+      COALESCE(${main__dim_customers.total_customers}, 0) /
+      ${main__dim_pets.total_pets} END
+    label: Customers per Pet

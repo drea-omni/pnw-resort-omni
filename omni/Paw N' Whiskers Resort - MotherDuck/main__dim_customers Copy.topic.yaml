@@ -1,0 +1,28 @@
+base_view: main__dim_customers
+label: New Topic
+description: Customer analysis with reservations, transactions, pets, and locations
+
+fields:
+  [
+    all_views.*,
+    -main__dim_locations.address_street,
+    -main__dim_locations.amenities,
+    -main__dim_locations.annual_utility_cost,
+    -main__dim_locations.address_zip
+  ]
+
+joins:
+  main__fact_transactions: {}
+  main__dim_pets: {}
+  main__fact_reservations:
+    main__dim_locations: {}
+
+ai_context: Use this topic for customer-centric analysis including customer
+  demographics, their pets, reservation patterns, transaction history, and
+  location data. Choose Dim Customers as the starting point when analyzing
+  customer profiles or segmentation. Use Fact Reservations to analyze booking
+  patterns, cancellations, or service utilization by customer. Use Fact
+  Transactions to analyze customer spending, payment methods, or revenue
+  metrics. Include Dim Pets when analyzing pet ownership patterns or pet-related
+  service preferences. Include Dim Locations when analyzing customer
+  distribution by geography or location-based trends.
