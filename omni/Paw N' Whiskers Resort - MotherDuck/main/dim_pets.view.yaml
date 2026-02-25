@@ -59,6 +59,12 @@ measures:
     sql: ${weight_lbs}
     label: Avg Weight
     aggregate_type: average
+
+  weight_category_branch_not_workbook_:
+    sql: CASE WHEN ${main__dim_pets.avg_weight} < 20 THEN 'Light' ELSE CASE WHEN
+      ${main__dim_pets.avg_weight} < 50 THEN 'Medium' ELSE 'Heavy' END END
+    label: Weight Category (Branch not Workbook)
+    format: ""
   # pets_per_customer:
   #   sql: ${total_pets} / NULLIF(${main__dim_customers.total_customers}, 0)
   #   label: Pets per Customer
