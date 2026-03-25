@@ -68,3 +68,10 @@ measures:
       COALESCE(${main__dim_customers.total_customers}, 0) /
       ${main__dim_pets.total_pets} END
     label: Customers per Pet
+
+  revenue_per_customer:
+    sql: CASE WHEN ${main__dim_customers.total_customers} = 0 THEN NULL ELSE
+      COALESCE(${main__fact_reservations.total_revenue}, 0) /
+      ${main__dim_customers.total_customers} END
+    label: Revenue per Customer
+    format: ""
