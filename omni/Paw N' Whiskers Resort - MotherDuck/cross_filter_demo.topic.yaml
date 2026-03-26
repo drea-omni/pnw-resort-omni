@@ -1,0 +1,119 @@
+base_view: main__fact_reservations
+label: Cross-Filter Demo 🐾
+description: A purpose-built topic for demonstrating cross-filtering across
+  reservations, transactions, customers, pets, locations, and services. Filter
+  any chart to see all others update in real time.
+
+joins:
+  main__dim_customers: {}
+  main__dim_locations: {}
+  main__dim_pets:
+    main__dim_pet_types: {}
+  main__dim_services:
+    main__dim_service_categories: {}
+  main__fact_transactions: {}
+
+views:
+  main__fact_reservations:
+    dimensions:
+      check_in_datetime:
+        label: Check-In Date
+
+      total_price:
+        label: Total Amount
+
+      status:
+        label: Reservation Status
+
+      booked_by:
+        label: Booking Channel
+
+    measures:
+      total_reservations:
+        label: Total Reservations
+
+      cancellation_rate:
+        label: Cancellation Rate
+
+      total_revenue:
+        label: Total Revenue
+
+      avg_stay_duration:
+        label: Avg Stay Length (days)
+
+  main__dim_customers:
+    dimensions:
+      loyalty_tier_color:
+        label: Loyalty Tier (Color)
+
+      loyalty_tier_medal:
+        label: Loyalty Tier (Medal)
+
+      customer_segment:
+        label: Customer Segment
+
+      address_state:
+        label: State
+
+      referral_source:
+        label: Referral Source
+
+    measures:
+      total_customers:
+        label: Total Customers
+
+  main__dim_locations:
+    dimensions:
+      location_name:
+        label: Location
+
+      region:
+        label: Region
+
+      state:
+        label: State
+
+      is_flagship:
+        label: Flagship?
+
+    measures:
+      total_locations:
+        label: Total Locations
+
+  main__dim_pets:
+    dimensions:
+      weight_lbs:
+        label: Weight (lbs)
+
+      temperament:
+        label: Temperament
+
+    measures:
+      total_pets:
+        label: Total Pets
+
+  main__dim_services:
+    dimensions:
+      service_name:
+        label: Service
+
+      base_price:
+        label: Base Price
+
+      is_premium:
+        label: Premium Service?
+
+    measures:
+      service_count:
+        label: Number of Services
+
+  main__dim_service_categories:
+    dimensions:
+      category_name:
+        label: Service Category
+
+ai_context: "Use this topic to build cross-filter demo dashboards. Great
+  dimensions for filtering include: Region, Location, Service Category, Service
+  Type, Loyalty Tier, Customer Segment, Reservation Status, and Booking Channel.
+  Great measures to visualize include: Total Reservations, Total Revenue, Avg
+  Stay Length, Cancellation Rate, and Total Customers."
