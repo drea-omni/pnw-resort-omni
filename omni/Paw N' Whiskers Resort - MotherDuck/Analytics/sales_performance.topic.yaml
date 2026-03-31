@@ -1,0 +1,156 @@
+base_view: main__fact_transactions
+label: Sales Performance
+group_label: Analytics
+description: Analyze revenue, transactions, bookings, and service performance
+  across locations, service categories, and customer segments. Use this topic
+  for sales reporting, trend analysis, and identifying top-performing services
+  and locations.
+
+fields:
+  [
+    main__fact_transactions.*,
+    main__fact_reservations.reservation_date,
+    main__fact_reservations.status,
+    main__fact_reservations.proper_status,
+    main__fact_reservations.total_revenue,
+    main__fact_reservations.avg_reservation_value,
+    main__fact_reservations.total_reservations,
+    main__fact_reservations.completed_reservations,
+    main__fact_reservations.cancelled_reservations,
+    main__fact_reservations.completion_rate,
+    main__fact_reservations.cancellation_rate,
+    main__fact_reservations.avg_rating,
+    main__fact_reservations.five_star_rate,
+    main__fact_reservations.net_revenue,
+    main__fact_reservations.discount_amount,
+    main__fact_reservations.add_on_total,
+    main__fact_reservations.booking_source_detail,
+    main__fact_reservations.repeat_booking,
+    main__fact_reservations.is_weekend,
+    main__fact_reservations.is_holiday,
+    main__dim_locations.location_name,
+    main__dim_locations.location_short_name,
+    main__dim_locations.region,
+    main__dim_locations.city,
+    main__dim_locations.state,
+    main__dim_locations.is_flagship,
+    main__dim_locations.manager_name,
+    main__dim_locations.total_locations,
+    main__dim_services.service_name,
+    main__dim_services.base_price,
+    main__dim_services.duration_minutes,
+    main__dim_services.is_premium,
+    main__dim_services.profit_margin_pct,
+    main__dim_services.avg_service_price,
+    main__dim_service_categories.category_name,
+    main__dim_customers.full_name,
+    main__dim_customers.customer_segment,
+    main__dim_customers.loyalty_tier_color,
+    main__dim_customers.loyalty_tier_medal,
+    main__dim_customers.address_state,
+    main__dim_customers.address_city,
+    main__dim_customers.referral_source,
+    main__dim_customers.total_customers,
+    main__dim_customers.revenue_per_customer
+  ]
+
+joins:
+  main__fact_reservations:
+    main__dim_locations: {}
+    main__dim_services:
+      main__dim_service_categories: {}
+    main__dim_customers: {}
+
+ai_context: This topic is designed for sales and revenue analysis at Paws &
+  Whiskers Resort. Use it to answer questions about revenue trends, transaction
+  volumes, payment methods, service category performance, location comparisons,
+  and customer spending. Key measures include Transaction Revenue, Total
+  Transactions, Avg Transaction Value, and Revenue per Customer. Key dimensions
+  for slicing include transaction date, location, service category, payment
+  method, customer segment, and loyalty tier.
+
+sample_queries:
+  Revenue by Location:
+    query:
+      fields:
+        [
+          main__dim_locations.location_name,
+          main__fact_transactions.transaction_revenue,
+          main__fact_transactions.total_transactions,
+          main__fact_transactions.avg_transaction_value
+        ]
+      base_view: main__fact_transactions
+      limit: 25
+      sorts:
+        - field: main__fact_transactions.transaction_revenue
+          desc: true
+      topic: sales_performance
+    description: Total transaction revenue broken down by resort location
+    prompt: Show me total revenue by location
+  Revenue by Service Category:
+    query:
+      fields:
+        [
+          main__dim_service_categories.category_name,
+          main__fact_transactions.transaction_revenue,
+          main__fact_transactions.total_transactions,
+          main__fact_transactions.avg_transaction_value
+        ]
+      base_view: main__fact_transactions
+      limit: 25
+      sorts:
+        - field: main__fact_transactions.transaction_revenue
+          desc: true
+      topic: sales_performance
+    description: Revenue and transaction count by service category
+    prompt: Show me revenue by service category
+  Monthly Revenue Trend:
+    query:
+      fields:
+        [
+          "main__fact_transactions.transaction_date[month]",
+          main__fact_transactions.transaction_revenue,
+          main__fact_transactions.total_transactions
+        ]
+      base_view: main__fact_transactions
+      limit: 36
+      sorts:
+        - field: main__fact_transactions.transaction_date[month]
+      topic: sales_performance
+    description: Revenue trend over time by month
+    prompt: Show me monthly revenue trend
+  Revenue by Customer Segment:
+    query:
+      fields:
+        [
+          main__dim_customers.customer_segment,
+          main__dim_customers.loyalty_tier_color,
+          main__fact_transactions.transaction_revenue,
+          main__fact_transactions.total_transactions,
+          main__dim_customers.total_customers
+        ]
+      base_view: main__fact_transactions
+      limit: 50
+      sorts:
+        - field: main__fact_transactions.transaction_revenue
+          desc: true
+      topic: sales_performance
+    description: Revenue and customer count broken down by customer segment and loyalty tier
+    prompt: Show me revenue by customer segment
+  Payment Method Breakdown:
+    query:
+      fields:
+        [
+          main__fact_transactions.payment_method,
+          main__fact_transactions.transaction_revenue,
+          main__fact_transactions.total_transactions,
+          main__fact_transactions.avg_transaction_value
+        ]
+      base_view: main__fact_transactions
+      limit: 25
+      sorts:
+        - field: main__fact_transactions.transaction_revenue
+          desc: true
+      topic: sales_performance
+    description: Transaction volume and revenue split by payment method
+    prompt: Show me revenue by payment method
