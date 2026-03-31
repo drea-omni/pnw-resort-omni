@@ -2,6 +2,7 @@ base_view: main__dim_pets
 label: Pets
 
 joins:
-  main__dim_customers: {}
+  main__dim_customers:
+    main__fact_reservations: {}
   main__dim_breeds: {}
   main__dim_pet_types: {}

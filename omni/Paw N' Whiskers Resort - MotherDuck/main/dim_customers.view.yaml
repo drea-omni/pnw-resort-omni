@@ -74,4 +74,4 @@ measures:
       COALESCE(${main__fact_reservations.total_revenue}, 0) /
       ${main__dim_customers.total_customers} END
     label: Revenue per Customer
-    format: ""
+    format: usdcurrency
