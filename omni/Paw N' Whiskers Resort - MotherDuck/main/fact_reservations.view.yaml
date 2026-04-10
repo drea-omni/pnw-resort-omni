@@ -134,6 +134,31 @@ measures:
     sql: COUNT(CASE WHEN ${rating} = 5 THEN 1 END)::FLOAT / NULLIF(COUNT(${rating}),
       0)
     label: 5-Star Rate
+
+  occupancy_rate_pct:
+    sql: ROUND((${main__fact_reservations.active_reservations}::FLOAT / 260) * 100,
+      1)
+    label: Occupancy Rate (%)
+
+  active_reservations:
+    sql: ${main__fact_reservations.reservation_id}
+    label: Active Reservations
+    aggregate_type: count_distinct
+
+  average_occupancy_rate:
+    sql: ${main__fact_reservations.occupancy_rate_pct}
+    label: Average Occupancy Rate
+    format: ""
+    aggregate_type: min
+    level_of_detail:
+      aggregate_type: average
+      fixed: []
+
+  average_occupancy_rate_1:
+    sql: CONCAT(CAST(${main__fact_reservations.active_reservations} AS VARCHAR),
+      '--')
+    label: Average Occupancy Rate
+    format: ""
   # reservations_per_pet:
   #   sql: ${total_reservations}::FLOAT / NULLIF(${main__dim_pets.total_pets}, 0)
   #   label: Reservations per Pet
