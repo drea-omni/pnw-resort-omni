@@ -43,24 +43,28 @@ views:
 
   main__dim_customers:
     dimensions:
-      address_state:
-        label: State
-
       loyalty_tier_color:
         label: Loyalty Tier (Color)
 
       loyalty_tier_medal:
         label: Loyalty Tier (Medal)
 
-      referral_source:
-        label: Referral Source
-
       customer_segment:
         label: Customer Segment
+
+      address_state:
+        label: State
+
+      referral_source:
+        label: Referral Source
 
     measures:
       total_customers:
         label: Total Customers
+
+      revenue_per_customer:
+        label: Revenue per Customer
+        format: usdcurrency
 
   main__dim_locations:
     dimensions:
