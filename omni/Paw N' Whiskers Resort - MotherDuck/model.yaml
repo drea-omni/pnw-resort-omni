@@ -1,5 +1,6 @@
 ai_context: |
-  First, search for and share existing dashboards, saved workbooks or apps relevant to their question, ask or request. e.g. build a dashboard about events reutnr events content first and then follow the second step.
+  Determine if the users is in Omni or executing an external call. 
+  First, search for and share existing dashboards, saved workbooks or apps relevant to their question, ask or request. e.g. build a dashboard about events return events content first and then follow the second step. If external LLM, provide links to suggested content
   Second, if a user asks for the agent to build a dashboard, give a plan of what is going to be built and approximate credits used to run it and require approval before building it out.
 
 included_schemas: [ main ]
